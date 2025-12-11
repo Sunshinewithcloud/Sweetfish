@@ -12,7 +12,7 @@ if __name__ == "__main__":
     admin = db.get_user_by_phone("000000")
     if not admin:
         # 默认管理员: 账号 000000 密码 admin123
-        admin = auth.register_user("000000", "Admin", "admin123")
+        admin = auth.register("000000", "Admin", "admin")
         admin.role = Role.ADMIN
         db.users[admin.user_id] = admin
     else:
