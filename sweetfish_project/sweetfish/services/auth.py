@@ -14,9 +14,14 @@ class AuthService:
     # =============================
     def register(self, phone: str, password: str, role: str = "USER"):
         """统一注册接口，根据角色创建不同用户"""
+        if not phone:
+            raise ValueError("手机号不能为空")
+
+        if not password:
+            raise ValueError("密码不能为空")
 
         if self.db.get_user_by_phone(phone):
-            raise Exception("手机号已存在")
+            raise ValueError("手机号已存在")
 
         # 普通用户
         if role.upper() == "USER":
@@ -56,7 +61,7 @@ class AuthService:
             return admin
 
         else:
-            raise Exception(f"未知角色: {role}")
+            raise ValueError(f"未知角色: {role}")
 
     # =============================
     #        用户认证
